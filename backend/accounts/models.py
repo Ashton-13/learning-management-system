@@ -17,5 +17,3 @@ class User(AbstractUser):
         default='student'
     )
 
-    def __str__(self):
-        return self.username
