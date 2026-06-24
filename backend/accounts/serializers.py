@@ -1,6 +1,19 @@
 from rest_framework import serializers
 from .models import User
 
+class UserSerializer(serializers.ModelSerializer):
+    """
+    Returns info about logged-in user
+    """
+    class Meta:
+        model = User
+        fields = [
+            'id',
+            'username',
+            'email',
+            'role',
+        ]
+        
 class RegisterSerializer(serializers.ModelSerializer):
     """
     Handles user registration.
