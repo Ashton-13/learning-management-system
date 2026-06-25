@@ -5,6 +5,7 @@ import CourseListPage from "./pages/CourseListPage";
 import StudentDashboard from "./pages/StudentDashboard";
 import TeacherDashboard from "./pages/TeacherDashboard";
 import Navbar from "./components/Navbar";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -14,8 +15,20 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/" element={<CourseListPage />} />
-        <Route path="/student" element={<StudentDashboard />} />
-        <Route path="/teacher" element={<TeacherDashboard />} />
+        <Route path="/student" element={
+          <ProtectedRoute allowedRole="student">
+            <StudentDashboard />
+          </ProtectedRoute>
+        }
+      />
+        <Route 
+        path="/teacher" 
+        element={
+          <ProtectedRoute allowedRole="teacher">
+            <TeacherDashboard />
+          </ProtectedRoute>
+        } 
+      />
       </Routes> 
     </BrowserRouter>
   );

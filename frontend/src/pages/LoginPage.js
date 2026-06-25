@@ -27,7 +27,10 @@ function LoginPage() {
                     password,
                 }
             );
-
+            // Debugging code
+            console.log("TOKEN RESPONSE:",
+            tokenResponse.data
+            );
             const accessToken = tokenResponse.data.access;
 
             // Saves token so user stays logged in after refresh
@@ -46,8 +49,23 @@ function LoginPage() {
                     },
                 }
             );
+            console.log(
+                "USER RESPONSE:",
+                userResponse.data
+            );
 
             const user = userResponse.data;
+
+            // Save user Information
+            localStorage.setItem(
+                "username",
+                user.username
+            );
+
+            localStorage.setItem(
+                "role",
+                user.role
+            );
 
             // Store authentication information in Redux
             dispatch(
