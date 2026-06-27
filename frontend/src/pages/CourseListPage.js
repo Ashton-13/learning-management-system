@@ -61,7 +61,7 @@ if (loading) {
 }
 
 return (
-    <div>
+    <div className="course-page">
 
         <h1>Available Courses</h1>
 

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
 import { loginSuccess } from "../features/auth/authSlice";
 import { Link } from "react-router-dom";
+import "../styles/Auth.css";
 
 function LoginPage() {
 
@@ -93,51 +94,39 @@ function LoginPage() {
     };
 
     return (
-        <div>
+        <div className="auth-page">
+            <div className="auth-card">    
+                <h1>Login</h1>
 
-            <h1>Login</h1>
-
-            <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit}>
                 
-                <div>
-                    <label>Username</label>
-                    <br />
+                        <label>Username</label>
+                        <input 
+                            type="text"
+                            value={username}
+                            onChange={(event) =>
+                                setUsername(event.target.value)
+                            }
+                        />
+                        <label>Password</label>
+                        <input 
+                            type="password"
+                            value={password}
+                            onChange={(event) => 
+                                setPassword(event.target.value)
+                            }
+                        />
 
-                    <input 
-                        type="text"
-                        value={username}
-                        onChange={(event) =>
-                            setUsername(event.target.value)
-                        }
-                    />
-                </div>
+                        <button type="submit">Login</button>
 
-                <br />
-
-                <div>
-                    <label>Password</label>
-                    <br />
-
-                    <input 
-                        type="password"
-                        value={password}
-                        onChange={(event) => 
-                            setPassword(event.target.value)
-                        }
-                    />
-                </div>
-
-                <br />
-
-                <button type="submit">Login</button>
-                <p>Don't have an account yet?{" "}
-                    <Link to="/register">
-                        Register here
-                    </Link>
-                </p>
-            </form>
-
-            <p>{message}</p>
+                    </form>
+                        <div className="auth-link">
+                            Don't have an account yet?{" "}
+                            <Link to="/register">
+                                Register here
+                            </Link>
+                        </div>
+            </div>
         </div>
     );
 }

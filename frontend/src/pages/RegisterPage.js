@@ -1,46 +1,43 @@
 import { useState } from "react";
 import api from "../api/axios";
 import { Link } from "react-router-dom";
+import "../styles/Auth.css";
+import { useNavigate } from "react-router-dom";
 
 function RegistrationPage() {
 
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
-const [message, setMessage] = useState("");
+    const [message, setMessage] = useState("");
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         try {
-            const response = await api.post(
-                "api/register/",
-                {
+             await api.post("api/register/", {
                     username,
                     email,
                     password,
                 }
             );
 
-            setMessage("Registration Successful!");
-
-            console.log(response.data);
-
+            navigate("/login");
         } catch (error) {
-            console.error(error);
-            setMessage("Registration failed.");
+            alert("Registration failed.");
         }
     };
 
     return (
-        <div>
+        <div className="auth-page">
+            <div className="auth-card">
             <h1>Register</h1>
 
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>Username</label>
-                    <br />
                     <input
                         type="text"
                         value={username}
@@ -49,10 +46,8 @@ const [message, setMessage] = useState("");
                         }
                     />
                 </div>
-                <br />
                 <div>
                     <label>Email</label>
-                    <br />
                     <input
                         type="email"
                         value={email}
@@ -61,10 +56,8 @@ const [message, setMessage] = useState("");
                         }
                     />
                 </div>
-                <br />
                 <div>
                     <label>Password</label>
-                    <br />
                     <input
                         type="password"
                         value={password}
@@ -73,18 +66,17 @@ const [message, setMessage] = useState("");
                         }
                     />
                 </div>
-                <br />
                 <button type="submit">
-                    Register
+                    Create Account
                 </button>
-                <p>Already have an account?{" "}
-                    <Link to="/login">
-                        Login here
-                    </Link>
-                </p>
-
             </form>
-            <p>{message}</p>
+            <div className="auth-link">
+                Already have an account?{" "}
+                <Link to="/login">
+                        Login here
+                </Link>
+            </div>
+            </div>
         </div>
     );
 }
