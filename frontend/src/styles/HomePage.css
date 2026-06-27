@@ -1,6 +1,8 @@
 .home {
     min-height: 100vh;
     padding: 60px 10%;
+    background: linear-gradient(135deg, #0B3C5D, #00897B);
+    color: #ffffff;
 }
 
 .hero {
@@ -16,11 +18,19 @@
 .hero p {
     font-size: 1.2rem;
     max-width: 700px;
-    margin: 0 auto 40px;
+    margin: auto;
     line-height: 1.5;
 }
 
 .hero-buttons {
+    margin-top: 35px;
+    padding: 15px 35px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    background: #FFC857;
+    cursor:pointer;
+    font-weight: bold;
     display: flex;
     justify-content: center;
     gap: 20px;
@@ -32,4 +42,40 @@
     padding: 14px 24px;
     border-radius: 6px;
     font-weight: bold;
+}
+
+.subjects,
+.feature {
+    padding: 70px 40px;
+    text-align: center;
+}
+
+.subject-container,
+.feature-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+    color: rgb(0,0,0);
+}
+
+.subject-card,
+.feature-card {
+    width: 320px;
+    padding: 30px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.12);
+}
+
+.footer_{
+    background: #0B3C5D;
+    color: white;
+    text-align: center;
+    padding: 40px;
+}
+
+.footer p {
+    margin-top: 10px;
 }

@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
 import { loginSuccess } from "../features/auth/authSlice";
+import { Link } from "react-router-dom";
 
 function LoginPage() {
 
@@ -129,6 +130,11 @@ function LoginPage() {
                 <br />
 
                 <button type="submit">Login</button>
+                <p>Don't have an account yet?{" "}
+                    <Link to="/register">
+                        Register here
+                    </Link>
+                </p>
             </form>
 
             <p>{message}</p>

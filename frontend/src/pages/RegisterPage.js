@@ -1,5 +1,6 @@
 import { useState } from "react";
 import api from "../api/axios";
+import { Link } from "react-router-dom";
 
 function RegistrationPage() {
 
@@ -76,6 +77,11 @@ const [message, setMessage] = useState("");
                 <button type="submit">
                     Register
                 </button>
+                <p>Already have an account?{" "}
+                    <Link to="/login">
+                        Login here
+                    </Link>
+                </p>
 
             </form>
             <p>{message}</p>
