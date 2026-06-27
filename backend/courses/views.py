@@ -36,5 +36,5 @@ class MyEnrollmentsView(generics.ListAPIView):
 
     def get_queryset(self):
         return Course.objects.filter(
-            student=self.request.user
+            enrollments__student=self.request.user
         )

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function Navbar() {
     return (
         <nav>
-            <h2>LMS</h2>
+            <h2>Sciece Academy</h2>
 
             <ul>
                 <li>

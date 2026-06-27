@@ -33,6 +33,7 @@ class Enrollment(models.Model):
     )
 
     enrolled_at = models.DateTimeField(auto_now_add=True)
+    is_completed = models.BooleanField(default=False)
 
     class Meta:
         
