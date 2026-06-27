@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../features/auth/authSlice";
+import "../styles/Navbar.css";
 
 function Navbar() {
     const dispatch = useDispatch();
@@ -9,28 +10,22 @@ function Navbar() {
     );
 
     const handleLogout = () => {
-        dispatch(logout());
         localStorage.removeItem("accessToken");
         localStorage.removeItem("username");
         localStorage.removeItem("role");
+        dispatch(logout());
     };
 
     return (
-        <nav
-            style={{
-                display: "flex",
-                justifyContent: "space-between",
-                padding: "10px 20px",
-                borderBottom: "1px solid #ccc",
-            }}
-        >
+        <nav className="navbar">
             <div>
                 <h2>Science Academy</h2>
             </div>
 
-            <div style={{ display: "flex", gap: "15px" }}>
+            <div className="nav-links">
                 <Link to="/">Home</Link>
                 <Link to='/courses'>Browse Courses</Link>
+
                 {isAuthenticated && role === "student" && (
                     <Link to="/student">My Courses</Link>
                 )}
@@ -41,14 +36,14 @@ function Navbar() {
                 <a href="#contact">Contact</a>
             </div>
 
-            <div style={{ display: "flex", gap: "10px" }}>
+            <div className="auth-links">
                 {!isAuthenticated ? (
                     <>
                         <Link to="/login">Login</Link>
                         <Link to="/register">Register</Link>
                     </>
                 ) : (
-                    <button onClick={handleLogout}>
+                    <button className="logout-button" onClick={handleLogout}>
                         Logout
                     </button>
                 )}
