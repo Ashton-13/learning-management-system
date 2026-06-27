@@ -1,31 +1,58 @@
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../features/auth/authSlice";
 
 function Navbar() {
+    const dispatch = useDispatch();
+    const { isAuthenticated, role } = useSelector(
+        (state) => state.auth
+    );
+
+    const handleLogout = () => {
+        dispatch(logout());
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("username");
+        localStorage.removeItem("role");
+    };
+
     return (
-        <nav>
-            <h2>Sciece Academy</h2>
+        <nav
+            style={{
+                display: "flex",
+                justifyContent: "space-between",
+                padding: "10px 20px",
+                borderBottom: "1px solid #ccc",
+            }}
+        >
+            <div>
+                <h2>Science Academy</h2>
+            </div>
 
-            <ul>
-                <li>
-                    <Link to="/">Courses</Link>
-                </li>
+            <div style={{ display: "flex", gap: "15px" }}>
+                <Link to="/">Home</Link>
+                <Link to='/courses'>Browse Courses</Link>
+                {isAuthenticated && role === "student" && (
+                    <Link to="/student">My Courses</Link>
+                )}
 
-                <li>
-                    <Link to="/login">Login</Link>
-                </li>
+                {isAuthenticated && role === "teacher" && (
+                    <Link to="/teacher">Dashboard</Link>
+                )}
+                <a href="#contact">Contact</a>
+            </div>
 
-                <li>
-                    <Link to="/register">Register</Link>
-                </li>
-
-                <li>
-                    <Link to="/student">Student Dashboard</Link>
-                </li>
-
-                <li>
-                    <Link to="/teacher">Teacher Dashboard</Link>
-                </li>
-            </ul>
+            <div style={{ display: "flex", gap: "10px" }}>
+                {!isAuthenticated ? (
+                    <>
+                        <Link to="/login">Login</Link>
+                        <Link to="/register">Register</Link>
+                    </>
+                ) : (
+                    <button onClick={handleLogout}>
+                        Logout
+                    </button>
+                )}
+            </div>
         </nav>
     );
 }
