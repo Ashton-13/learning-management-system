@@ -6,11 +6,8 @@ import { loginSuccess } from "../features/auth/authSlice";
 
 function LoginPage() {
 
-    // Store form inputs using React state
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-
-    // Displays success or error messages
     const [message, setMessage] = useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -27,7 +24,7 @@ function LoginPage() {
                     password,
                 }
             );
-            // Debugging code
+            
             console.log("TOKEN RESPONSE:",
             tokenResponse.data
             );
@@ -56,7 +53,6 @@ function LoginPage() {
 
             const user = userResponse.data;
 
-            // Save user Information
             localStorage.setItem(
                 "username",
                 user.username
@@ -67,7 +63,7 @@ function LoginPage() {
                 user.role
             );
 
-            // Store authentication information in Redux
+            
             dispatch(
                 loginSuccess({
                     token: accessToken,

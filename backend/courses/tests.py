@@ -6,9 +6,7 @@ from courses.models import Course, Enrollment
 
 class CourseModelTest(TestCase):
     def test_course_creation(self):
-        """
-        Ensure a course can be created.
-        """
+
         teacher = User.objects.create_user(
             username="teacher_test",
             password="password123",

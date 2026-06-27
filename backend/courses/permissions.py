@@ -1,9 +1,6 @@
 from rest_framework.permissions import BasePermission
 
 class IsTeacher(BasePermission):
-    """
-    Only teachers can perform this action
-    """
 
     def has_permission(self, request, view):
         return (
@@ -12,9 +9,6 @@ class IsTeacher(BasePermission):
         )
     
 class IsStudent(BasePermission):
-    """
-    Only students can perform this action
-    """
 
     def has_permission(self, request, view):
         return (

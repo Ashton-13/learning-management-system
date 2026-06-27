@@ -3,14 +3,11 @@ import api from "../api/axios";
 
 function RegistrationPage() {
 
-    // Store form data using React state
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [role, setRole] = useState("student");
 
-    // Display success or error messages
-    const [message, setMessage] = useState("");
+const [message, setMessage] = useState("");
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -22,7 +19,6 @@ function RegistrationPage() {
                     username,
                     email,
                     password,
-                    role,
                 }
             );
 
@@ -77,26 +73,6 @@ function RegistrationPage() {
                     />
                 </div>
                 <br />
-                <div>
-                    <label>Role</label>
-                    <br />
-                    <select
-                        value={role}
-                        onChange={(e) =>
-                            setRole(e.target.value)
-                        }
-                    >
-                        <option value="student">
-                            Student
-                        </option>
-                        <option value="teacher">
-                            Teacher
-                        </option>
-                    </select>
-                </div>
-
-                <br />
-
                 <button type="submit">
                     Register
                 </button>

@@ -2,10 +2,30 @@ import { useEffect, useState } from "react";
 import api from "../api/axios";
 
 function CourseListPage () {
-// Stores courses retrieved from the API
+
 const [courses, setCourses] = useState([]);
-// Stores loading state
+
 const [loading, setLoading] = useState(true);
+
+const handleEnrollment = async (courseId) => {
+    try {
+        await api.post("api/enroll/", {
+            course: courseId,
+        });
+        alert("Successfully enrolled!");
+    } catch (error) {
+        console.error(
+            "Enrollment was unsuccessful",
+            error.response?.data || error
+        );
+
+        if (error.response?.status === 400) {
+        alert("You are already enrolled in this course.");
+    } else {
+        alert("Enrollment unsuccessful. Please try again.");
+    }
+    }
+};
 
 useEffect(() => {
     const fetchCourses = async () => {
@@ -56,13 +76,14 @@ return (
                     <p>
                         {course.description}
                     </p>
-
+                    <button onClick={() => handleEnrollment(course.id)}>Enroll</button>
                 </div>
             ))
         )}
     </div>
 );
 }
+
 
 
 export default CourseListPage;
