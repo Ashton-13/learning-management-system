@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
+import "../styles/Courses.css"
 
 function CourseListPage () {
 
@@ -9,7 +10,40 @@ const [loading, setLoading] = useState(true);
 const [enrolledCourses, setEnrolledCourses] = useState([]);
 const navigate = useNavigate();
 
-const handleEnrollment = async (courseId) => {
+const getCourses = async () => {
+    try {
+        const response = await api.get("api/courses/");
+        setCourses(response.data);
+    } catch (error) {
+        console.error("Error loading courses:", error);
+    } finally {
+        setLoading(false);
+    }
+};
+
+const fetchEnrollments = async () => {
+    try {
+        const response = await api.get("api/my-courses/", {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("accessToken")}`
+            }
+        });
+
+        const enrolledIds = response.data.map((enrollment) => enrollment.course.id);
+
+        setEnrolledCourses(enrolledIds);
+
+    } catch (error) {
+        console.log("No enrollments or not logged in")
+    }
+};
+
+    useEffect(() => {
+       getCourses();
+        fetchEnrollments();
+    }, []);
+
+    const handleEnrollment = async (courseId) => {
     const token = localStorage.getItem("accessToken");
     
     if (!token) {
@@ -17,45 +51,21 @@ const handleEnrollment = async (courseId) => {
         return;
     }
     try {
-        await api.post("/api/enroll/", {
-            course: courseId,
-        });
+        await api.post("/api/enroll/", 
+            { course_id: courseId },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
 
     setEnrolledCourses((prev) => [...prev, courseId]);
 } catch (error) {
-    console.error(
-        "Enrollment failed:",
-        error.response?.data || error
-    );
-    if(error.response?.status === 400) {
-        alert("Enrolled in this course already.");
-    } else {
-        alert("Enrollment failed.")
-    }
+    console.error(error);
 }
 };
-
-useEffect(() => {
-    const fetchCourses = async () => {
-
-        try {
-            const response = await api.get(
-                "api/courses/"
-            );
-            setCourses(response.data);
-        } catch (error) {
-            console.error(
-                "Error loading courses:",
-                error
-            );
-        } finally {
-            setLoading(false);
-        }
-    };
-    fetchCourses();
-
-}, []);
-
+        
 if (loading) {
     return <p>Loading courses...</p>;
 }
@@ -63,51 +73,28 @@ if (loading) {
 return (
     <div className="course-page">
 
-        <h1>Available Courses</h1>
+        <h1>Browse Courses</h1>
 
-        {courses.length === 0 ? (
-            <p>No courses available.</p>
-        ) : (
-            courses.map((course) => (
-                <div
-                    key={course.id}
-                    style={{
-                        border: "1px solid #ccc",
-                        padding: "10px",
-                        marginBottom: "10px",
-                    }}
-                >
-                    <h3>
-                        {course.title}
-                    </h3>
+        <div className="course-list">
+            {courses.map(course => {
+                const isEnrolled = enrolledCourses.includes(course.id);
 
-                    <p>
-                        {course.description}
-                    </p>
-                    <button onClick={() => handleEnrollment(course.id)}
-                        disabled={enrolledCourses.includes(course.id)}
-                        style={{
-                            backgroundColor: enrolledCourses.includes(course.id)
-                                ? "green"
-                                : "#00897B",
-                            color: "white",
-                            padding: "8px 12px",
-                            border: "none",
-                            cursor: enrolledCourses.includes(course.id)
-                                ? "default"
-                                : "pointer",
-                            opacity: enrolledCourses.includes(course.id)
-                                ? 0.7
-                                : 1,
-                        }}
-                    >
-                        {enrolledCourses.includes(course.id)
-                        ? "Enrolled ✔"
-                        : "Enroll"}
-                    </button>
-                </div>
-            ))
-        )}
+                return (
+                    <div key={course.id} className="course-card">
+                        <h3>{course.title}</h3>
+                        <p>{course.description}</p>
+                        <button
+                            onClick={() => handleEnrollment(course.id)}
+                            disabled={isEnrolled}
+                            className={isEnrolled ? "btn-enrolled" : "btn-enroll"}
+                        >
+                            {isEnrolled ? "Enrolled ✔" : "Enroll"}
+                        </button>
+                    </div>
+                );
+            })}
+        </div>
+    
     </div>
 );
 }
