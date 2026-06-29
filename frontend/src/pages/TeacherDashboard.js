@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import api from "../api/axios";
 import "../styles/teacherdashboard.css";
 
@@ -14,7 +14,7 @@ function TeacherDashboard() {
     );
     const token = localStorage.getItem("accessToken");
 
-        const fetchCourses = async () => {
+        const fetchCourses = useCallbak(async () => {
             try {
                 const response = await api.get("api/teacher/courses/", {
                     headers: {
@@ -28,7 +28,7 @@ function TeacherDashboard() {
             } finally {
                 setLoading(false);
             }
-        };
+        }, [token]);
           
     useEffect(() => {
         fetchCourses(); 
