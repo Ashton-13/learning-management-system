@@ -14,7 +14,7 @@ function TeacherDashboard() {
     );
     const token = localStorage.getItem("accessToken");
 
-        const fetchCourses = useCallbak(async () => {
+        const fetchCourses = useCallback(async () => {
             try {
                 const response = await api.get("api/teacher/courses/", {
                     headers: {
