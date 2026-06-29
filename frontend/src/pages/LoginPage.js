@@ -74,7 +74,7 @@ function LoginPage() {
                 })
             );
 
-            setMessage("Login Successful!");
+            //setMessage("Login Successful!");
 
             // Redirects based on user's role
             if (user.role === "teacher") {
@@ -87,10 +87,10 @@ function LoginPage() {
 
             console.error(error);
 
-            setMessage(
-                "Invalid username or password"
-            );
-        }
+            //setMessage(
+            //    "Invalid username or password"
+            //)
+        };
     };
 
     return (
