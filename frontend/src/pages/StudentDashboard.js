@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
-import "../styles/StudentDashboard.css"
+import "../styles/studentdashboard.css"
 
 function StudentDashboard() {
     const [courses, setCourses] = useState([]);

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
-import "../styles/Courses.css"
+import "../styles/courses.css"
 
 function CourseListPage () {
 

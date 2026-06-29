@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
 import { loginSuccess } from "../features/auth/authSlice";
 import { Link } from "react-router-dom";
-import "../styles/Auth.css";
+import "../styles/auth.css";
 
 function LoginPage() {
 

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import "../styles/HomePage.css";
+import "../styles/home-page.css";
 
 function HomePage() {
     const { isAuthenticated, role } = useSelector(

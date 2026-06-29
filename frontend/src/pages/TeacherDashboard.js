@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import api from "../api/axios";
-import "../styles/TeacherDashboard.css";
+import "../styles/teacherdashboard.css";
 
 function TeacherDashboard() {
     const [courses, setCourses] = useState([]);
