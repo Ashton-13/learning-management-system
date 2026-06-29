@@ -3,4 +3,19 @@ from django.contrib.auth.admin import UserAdmin
 from .models import User
 
 # Register your models here.
-admin.site.register(User, UserAdmin)
+@admin.register(User)
+class CustomUserAdmin(UserAdmin):
+    fieldsets = UserAdmin.fieldsets + (
+        ("Additional Information", {
+            "fields": ("role",),
+        }),
+    )
+
+    list_display = (
+        "username",
+        "email",
+        "role",
+        "is_staff",
+        "is_superuser",
+        
+    )

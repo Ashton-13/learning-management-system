@@ -2,8 +2,10 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../features/auth/authSlice";
 import "../styles/Navbar.css";
+import { useNavigate} from "react-router-dom";
 
 function Navbar() {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const { isAuthenticated, role } = useSelector(
         (state) => state.auth
@@ -14,6 +16,8 @@ function Navbar() {
         localStorage.removeItem("username");
         localStorage.removeItem("role");
         dispatch(logout());
+
+        navigate("/");
     };
 
     return (
@@ -33,7 +37,7 @@ function Navbar() {
                 {isAuthenticated && role === "teacher" && (
                     <Link to="/teacher">Dashboard</Link>
                 )}
-                <a href="#contact">Contact</a>
+                {/* <a href="#contact">Contact</a> */}
             </div>
 
             <div className="auth-links">

@@ -3,6 +3,8 @@ from .views import (CourseListCreateView,
                     CourseDetailView, 
                     EnrollmentCreateView,
                     MyEnrollmentsView,
+                    MyTeacherCoursesView,
+                    ToggleCourseCompletionView,
                 )
 
 urlpatterns = [
@@ -30,4 +32,14 @@ urlpatterns = [
         name='my-courses'
     ),
 
+    path("teacher/courses/",
+         MyTeacherCoursesView.as_view(),
+         name="teacher-courses"
+    ),
+
+    path(
+        "courses/<int:pk>/toggle-complete/",
+        ToggleCourseCompletionView.as_view(),
+        name='toggle-complete',
+    ),
 ]

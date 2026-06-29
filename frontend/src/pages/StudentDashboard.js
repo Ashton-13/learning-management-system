@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
-import "../styles/Student.css"
+import "../styles/StudentDashboard.css"
 
 function StudentDashboard() {
     const [courses, setCourses] = useState([]);
@@ -28,36 +28,72 @@ function StudentDashboard() {
         };
         fetchMyCourses();
     }, []);
+    
+    const toggleCompletion = async (courseId) => {
+        try {
+            await api.patch(
+                `/api/courses/${courseId}/toggle-complete/`,
+                {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+                    },
+                }
+            );
 
+            setCourses((prev) =>
+                prev.map((course) => 
+                    course.id === courseId
+                        ? {
+                            ...course,
+                            is_completed: !course.is_completed,
+                          }
+                        : course
+                )
+            );
+        } catch (error) {
+            console.error("Error updating courses:", error)
+        }
+    };
 
     if (loading) {
         return <p>Loading your dashboard...</p>;
 
     }
-    const completedCourses = courses.filter(
-        (c) => c.is_completed === true
+
+    const inProgressCourses = courses.filter(
+        (course) => !course.is_completed
     );
+
+    const completedCourses = courses.filter(
+        (course) => course.is_completed
+    );
+
     return (
         <div className="student-dashboard">
             <h1>Student Dashboard</h1>
+
             <section>
             <h2>My Courses</h2>
-            {courses.length === 0 ? (
+            {inProgressCourses.length === 0 ? (
                 <p>You currently don't have any courses. Head over to "Browse Courses" and get yourself enrolled!!</p>
-            ) : ( 
-                courses.map((course) => (
+            ) : (
+                <div className="course-grid"> 
+                {inProgressCourses.map((course) => (
                 <div 
                     key={course.id}
                     className="course-card"
                 >   
                     <h3>{course.title}</h3>
                     <p>{course.description}</p>
-                    <span className="status">
-                        In Progress
-                    </span>
+                    <button className="complete-btn" onClick={() => toggleCompletion(course.id)}>
+                        ✔ Mark Completed   
+                    </button>
                 </div>
-                ))
+                ))}
+                </div>
             )}
+
             </section>
             <hr />
             <section>
@@ -65,20 +101,17 @@ function StudentDashboard() {
             {completedCourses.length === 0 ? (
                 <p>No completed courses yet. Keep working at it, you got this!</p>
             ) : (
-                completedCourses.map((course) => (
-                    <div
-                        key={course.id}
-                        style={{
-                            border: "1px solid #ccc",
-                            padding: "10px",
-                            marginBottom: "10px",
-                            background: "e8f5e9",
-                        }}
-                    >
+                <div className="course-grid">
+                {completedCourses.map((course) => (
+                    <div key={course.id} className="course-card">
                         <h4>{course.title}</h4>
-                        <p>{course.course.description}</p>
+                        <p>{course.description}</p>
+                        <button className="in-progress-btn" onClick={() => toggleCompletion(course.id)}>
+                            ↩ Mark In Progress
+                        </button>
                     </div>
-                ))
+                ))}
+                </div>
             )}
             </section>
         </div>

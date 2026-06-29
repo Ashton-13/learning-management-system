@@ -29,7 +29,7 @@ const fetchEnrollments = async () => {
             }
         });
 
-        const enrolledIds = response.data.map((enrollment) => enrollment.course.id);
+        const enrolledIds = response.data.map(course => course.id);
 
         setEnrolledCourses(enrolledIds);
 

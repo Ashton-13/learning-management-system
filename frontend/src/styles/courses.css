@@ -1,19 +1,26 @@
 .course-page {
     padding: 40px;
-    background: #F4F7F9;
+    background: linear-gradient(135deg, #0B3C5D, #00897B);
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .course-page h1 {
     text-align: center;
     margin-bottom: 30px;
     font-family: "Space Mono", monospace;
+    color: #fff;
 }
 
 .course-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
     gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .course-card {
@@ -21,6 +28,9 @@
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .course-card h3 {
@@ -28,7 +38,7 @@
 }
 
 .course-card p {
-    color: #555;
+    color: #000000;
     margin-bottom: 15px;
 }
 
