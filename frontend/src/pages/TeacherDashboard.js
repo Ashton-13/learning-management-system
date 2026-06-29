@@ -32,7 +32,7 @@ function TeacherDashboard() {
           
     useEffect(() => {
         fetchCourses(); 
-        }, []);
+        }, [fetchCourses]);
 
         const handleSubmit = async (e) => {
             e.preventDefault();

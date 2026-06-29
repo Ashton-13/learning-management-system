@@ -10,7 +10,7 @@ function LoginPage() {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [message, setMessage] = useState("");
+    // const [message, setMessage] = useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
     

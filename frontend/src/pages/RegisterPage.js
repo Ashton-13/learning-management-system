@@ -11,7 +11,7 @@ function RegistrationPage() {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-    const [message, setMessage] = useState("");
+    // const [message, setMessage] = useState("");
 
     const handleSubmit = async (event) => {
         event.preventDefault();
