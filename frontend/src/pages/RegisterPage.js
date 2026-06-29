@@ -1,7 +1,7 @@
 import { useState } from "react";
 import api from "../api/axios";
 import { Link } from "react-router-dom";
-import "../styles/Auth.css";
+import "../styles/auth.css";
 import { useNavigate } from "react-router-dom";
 
 function RegistrationPage() {
