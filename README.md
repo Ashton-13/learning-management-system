@@ -55,3 +55,5 @@ Deployed using **Render** and **Netlify**.
 
 ### HTML Validation
 
+<img width="1907" height="868" alt="image" src="https://github.com/user-attachments/assets/f1de3412-fa61-4f68-812a-6acd553d9c9e" />
+
