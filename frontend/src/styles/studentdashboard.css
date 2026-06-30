@@ -5,6 +5,7 @@
     margin: 0 auto;
     background: linear-gradient(135deg, #0B3C5D, #00897B);
     color: #fff;
+    width: 100%
 }
 
 .student-dashboard h1 {
