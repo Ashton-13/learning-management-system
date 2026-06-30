@@ -46,6 +46,9 @@ Deployed using **Render** and **Netlify**.
   - npm start
  
 ## Wireframes
+### Home Page
+<img width="4560" height="2786" alt="image" src="https://github.com/user-attachments/assets/d058d0d2-5f0c-4cf3-9e09-b6aeb93ffb17" />
+### Browse Courses
 
 
 ## Validations
