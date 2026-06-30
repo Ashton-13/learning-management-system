@@ -23,9 +23,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-1j6vg2=9omwtxvkq6ftup-20kq1(@ffp3nq%jc2+p5xzpoeh$g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    ".onrender.com"
+]
 
 
 # Application definition
@@ -145,5 +149,5 @@ SIMPLE_JWT = {
 # Allow requests from the react development server
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
+    "https://bright-treacle-9222ce.netlify.app",
 ]
