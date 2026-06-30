@@ -1,11 +1,9 @@
 .student-dashboard {
     min-height: 100vh;
     padding: 24px;
-    max-width: 1100px;
-    margin: 0 auto;
     background: linear-gradient(135deg, #0B3C5D, #00897B);
     color: #fff;
-    width: 100%
+    width: 100%;
 }
 
 .student-dashboard h1 {
