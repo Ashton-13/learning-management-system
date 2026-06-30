@@ -3,7 +3,7 @@
     background: linear-gradient(135deg, #0B3C5D, #00897B);
     min-height: 100vh;
     color: #ffffff;
-    font-family: "Oxanium", "Space Mono, sans-seriff";
+    font-family: "Oxanium", "Space Mono", "sans-seriff";
 }
 
 .teacher-dashboard h1 {
