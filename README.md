@@ -51,6 +51,7 @@ Deployed using **Render** and **Netlify**.
 ### Browse Courses
 <img width="4560" height="2786" alt="image" src="https://github.com/user-attachments/assets/a5cc424e-6f22-4104-9ee6-4f409f008935" />
 ### Teacher Dashboard
+<img width="4560" height="2786" alt="image" src="https://github.com/user-attachments/assets/1f947ae6-8bab-43a7-8901-4656b0e00785" />
 
 ## Validations
 
