@@ -51,7 +51,7 @@ Deployed using **Render** and **Netlify**.
 ## Validations
 
 ### CSS Validation
-https://github.com/Ashton-13/learning-management-system/blob/18160d50848c025944cb19aabfd121cae06a55d2/css-validation.PNG
+
 
 ### HTML Validation
-https://github.com/Ashton-13/learning-management-system/blob/fcfa179b4f3a03203665c6dd2c854b970d6ed491/html-validation.PNG
+
