@@ -1,8 +1,9 @@
 .home {
     min-height: 100vh;
     padding: 60px 10%;
-    background: linear-gradient(135deg, #0B3C5D, #00897B);
+    background: linear-gradient(135deg, #0B3C5D, #00695C);
     color: #ffffff;
+    font-family: "Oxanium", "Space Mono", sans-serif;
 }
 
 .hero {
@@ -11,71 +12,153 @@
 }
 
 .hero h1 {
-    font-size: 3.5rem;
+    font-size: clamp(2.4rem, 6vw, 3.5rem);
     margin-bottom: 20px;
 }
 
 .hero p {
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
     max-width: 700px;
     margin: auto;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 .hero-buttons {
     margin-top: 35px;
-    padding: 15px 35px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 6px;
-    background: #FFC857;
-    cursor:pointer;
-    font-weight: bold;
     display: flex;
     justify-content: center;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 .primary-button,
 .secondary-button {
     text-decoration: none;
     padding: 14px 24px;
-    border-radius: 6px;
+    border-radius: 8px;
     font-weight: bold;
+    transition: 0.2s ease;
+    display: inline-block;
+}
+
+.primary-button {
+    background: #FFC857;
+    color: #0B3C5D;
+}
+
+.primary-button:hover {
+    background: #E6A800;
+}
+
+.secondary-button {
+    background: #00695C;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+}
+
+.secondary-button:hover {
+    background: #004D40;
 }
 
 .subjects,
 .feature {
-    padding: 70px 40px;
+    padding: 70px 0;
     text-align: center;
+}
+
+.subjects h2,
+.feature h2 {
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    margin-bottom: 20px;
 }
 
 .subject-container,
 .feature-container {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 30px;
-    flex-wrap: wrap;
     margin-top: 40px;
-    color: rgb(0,0,0);
+    color: #0B3C5D;
 }
 
 .subject-card,
 .feature-card {
-    width: 320px;
     padding: 30px;
-    background: white;
-    border-radius: 10px;
+    background: #ffffff;
+    border-radius: 12px;
     box-shadow: 0 5px 18px rgba(0,0,0,0.12);
+    text-align: left;
 }
 
-.footer_{
+.subject-card h3,
+.feature-card h3 {
+    margin-bottom: 12px;
+    color: #0B3C5D;
+    font-family: "Space Mono", monospace;
+}
+
+.subject-card p,
+.feature-card p {
+    color: #333333;
+    line-height: 1.6;
+}
+
+.footer {
     background: #0B3C5D;
-    color: white;
+    color: #ffffff;
     text-align: center;
-    padding: 40px;
+    padding: 40px 20px;
+    border-radius: 12px;
+    margin-top: 40px;
+}
+
+.footer h2 {
+    margin-bottom: 12px;
 }
 
 .footer p {
     margin-top: 10px;
+}
+
+.primary-button:focus-visible,
+.secondary-button:focus-visible {
+    outline: 3px solid #FFD54F;
+    outline-offset: 3px;
+}
+
+@media (max-width: 768px) {
+    .home {
+        padding: 40px 24px;
+    }
+
+    .hero {
+        margin-top: 40px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .primary-button,
+    .secondary-button {
+        text-align: center;
+        width: 100%;
+    }
+
+    .subjects,
+    .feature {
+        padding: 50px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .home {
+        padding: 32px 18px;
+    }
+
+    .subject-card,
+    .feature-card {
+        padding: 22px;
+    }
 }

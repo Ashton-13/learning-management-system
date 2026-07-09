@@ -11,10 +11,12 @@ function RegistrationPage() {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-    // const [message, setMessage] = useState("");
+    const [message, setMessage] = useState("");
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        setMessage("");
 
         try {
              await api.post("api/register/", {
@@ -26,7 +28,7 @@ function RegistrationPage() {
 
             navigate("/login");
         } catch (error) {
-            alert("Registration failed.");
+            setMessage("Registration failed. Please try again.");
         }
     };
 
@@ -37,30 +39,39 @@ function RegistrationPage() {
 
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>Username</label>
+                    <label htmlFor="register-username">Username</label>
                     <input
                         type="text"
+                        id="register-username"
                         value={username}
+                        required
+                        autoComplete="username"
                         onChange={(e) =>
                             setUsername(e.target.value)
                         }
                     />
                 </div>
                 <div>
-                    <label>Email</label>
+                    <label htmlFor="register-email">Email</label>
                     <input
                         type="email"
+                        id="register-email"
                         value={email}
+                        required
+                        autoComplete="email"
                         onChange={(e) =>
                             setEmail(e.target.value)
                         }
                     />
                 </div>
                 <div>
-                    <label>Password</label>
+                    <label htmlFor="register-password">Password</label>
                     <input
                         type="password"
+                        id="register-password"
                         value={password}
+                        required
+                        autoComplete="new-password"
                         onChange={(e) => 
                             setPassword(e.target.value)
                         }
@@ -70,6 +81,15 @@ function RegistrationPage() {
                     Create Account
                 </button>
             </form>
+
+            {message && (
+                <p className="auth-error"
+                    aria-live="polite"
+                >
+                    {message}
+                </p>
+            )}
+                
             <div className="auth-link">
                 Already have an account?{" "}
                 <Link to="/login">

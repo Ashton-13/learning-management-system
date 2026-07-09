@@ -10,7 +10,7 @@ function LoginPage() {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    // const [message, setMessage] = useState("");
+    const [message, setMessage] = useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
     
@@ -32,13 +32,13 @@ function LoginPage() {
             );
             const accessToken = tokenResponse.data.access;
 
-            // Saves token so user stays logged in after refresh
+            
             localStorage.setItem(
                 "accessToken",
                 accessToken
             );
 
-            // Request info about user that is logged in
+            
             const userResponse = await api.get(
                 "api/me/",
                 {
@@ -77,7 +77,9 @@ function LoginPage() {
             //setMessage("Login Successful!");
 
             // Redirects based on user's role
-            if (user.role === "teacher") {
+            if (user.role === "admin") {
+                navigate("/admin");
+            } else if (user.role === "teacher") {
                 navigate("/teacher");
             } else {
                 navigate("/student");
@@ -87,10 +89,10 @@ function LoginPage() {
 
             console.error(error);
 
-            //setMessage(
-            //    "Invalid username or password"
-            //)
-        };
+            setMessage(
+                "Invalid username or password"
+            );
+        }
     };
 
     return (
@@ -100,18 +102,24 @@ function LoginPage() {
 
                     <form onSubmit={handleSubmit}>
                 
-                        <label>Username</label>
+                        <label htmlFor="username">Username</label>
                         <input 
+                            id="username"
                             type="text"
                             value={username}
+                            required
+                            autoComplete="username"
                             onChange={(event) =>
                                 setUsername(event.target.value)
                             }
                         />
-                        <label>Password</label>
+                        <label htmlFor="password">Password</label>
                         <input 
+                            id="password"
                             type="password"
                             value={password}
+                            required
+                            autoComplete="current-password"
                             onChange={(event) => 
                                 setPassword(event.target.value)
                             }
@@ -120,6 +128,15 @@ function LoginPage() {
                         <button type="submit">Login</button>
 
                     </form>
+                    
+                        {message && (
+                            <p className="auth-error"
+                                aria-live="polite"
+                            >
+                                {message}
+                            </p>
+                        )}
+
                         <div className="auth-link">
                             Don't have an account yet?{" "}
                             <Link to="/register">

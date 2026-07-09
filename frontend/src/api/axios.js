@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "https://learning-management-system-spwg.onrender.com"
+    baseURL: "http://127.0.0.1:8000/"
 });
 
 // Add JWT access token to every request if user is logged in

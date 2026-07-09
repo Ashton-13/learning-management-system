@@ -23,7 +23,7 @@ function Navbar() {
     return (
         <nav className="navbar">
             <div>
-                <h2>Science Academy</h2>
+                <h2 className="logo">Science Academy</h2>
             </div>
 
             <div className="nav-links">
@@ -38,6 +38,12 @@ function Navbar() {
                     <Link to="/teacher">Dashboard</Link>
                 )}
                 {/* <a href="#contact">Contact</a> */}
+
+                {isAuthenticated && role === "admin" && (
+                    <Link to="/admin">
+                        Admin Dashboard
+                    </Link>
+                )}
             </div>
 
             <div className="auth-links">
@@ -47,7 +53,7 @@ function Navbar() {
                         <Link to="/register">Register</Link>
                     </>
                 ) : (
-                    <button className="logout-button" onClick={handleLogout}>
+                    <button type="button" className="logout-button" onClick={handleLogout}>
                         Logout
                     </button>
                 )}

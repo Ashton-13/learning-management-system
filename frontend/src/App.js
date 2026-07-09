@@ -7,6 +7,7 @@ import TeacherDashboard from "./pages/TeacherDashboard";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
 import HomePage from "./pages/HomePage";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
         <Route path="/courses" element={<CourseListPage />}/>
         <Route path="/" element={<HomePage />} />
         <Route path="/student" element={
-          <ProtectedRoute allowedRole="student">
+          <ProtectedRoute allowedRole={["student"]}>
             <StudentDashboard />
           </ProtectedRoute>
         }
@@ -26,10 +27,18 @@ function App() {
         <Route 
         path="/teacher" 
         element={
-          <ProtectedRoute allowedRole="teacher">
+          <ProtectedRoute allowedRole={["teacher", "admin"]}>
             <TeacherDashboard />
           </ProtectedRoute>
         } 
+      />
+        <Route
+        path="/admin"
+        element={
+          <ProtectedRoute allowedRole={["admin"]}>
+            <AdminDashboard />
+          </ProtectedRoute>
+        }
       />
       </Routes> 
     </BrowserRouter>

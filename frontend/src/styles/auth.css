@@ -28,14 +28,15 @@
     padding: 12px;
     margin-top: 6px;
     margin-bottom: 15px;
-    border: 1px solid #ccc;
+    border: 1px solid #B0BEC5;
     border-radius: 6px;
+    transition: border-color .2s ease;
 }
 
 .auth-card button {
     width: 100%;
     padding: 12px;
-    background: #00897B;
+    background: #00695C;
     color: white;
     border: none;
     border-radius: 6px;
@@ -44,7 +45,7 @@
 }
 
 .auth-card button:hover {
-    background: #00695C;
+    background: #004D40;
 
 }
 
@@ -59,4 +60,37 @@
     color: #0B3C5D;
     text-decoration: none;
     font-weight: bold;
+}
+
+.auth-card label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 600;
+    color: #0B3C5D;
+}
+
+.auth-card input:focus-visible,
+.auth-card select:focus-visible,
+.auth-card button:focus-visible,
+.auth-link a:focus-visible {
+    outline: 3px solid #FFD54F;
+    outline-offset: 2px;
+}
+
+.auth-card input:focus,
+.auth-card select:focus {
+    border-color: #00695C;
+}
+
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 24px;
+    }
+}
+
+.auth-error {
+    margin-top: 16px;
+    color: #C62828;
+    font-weight: 600;
+    text-align: center;
 }

@@ -52,4 +52,9 @@ urlpatterns = [
         'api/token/refresh/',
         TokenRefreshView.as_view()
     ),
+
+    path(
+        'api-auth/',
+        include('rest_framework.urls')
+    ),
 ]

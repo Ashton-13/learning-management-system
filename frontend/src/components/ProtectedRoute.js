@@ -19,7 +19,10 @@ function ProtectedRoute({ children, allowedRole }) {
 
 
 // User has the incorrect role
-if (allowedRole && role !== allowedRole) {
+if (
+    allowedRole && 
+    !allowedRole.includes(role)
+) {
     return <Navigate to="/" />;
 }
 

@@ -1,15 +1,18 @@
 .navbar {
     background-color: #0B3C5D;
-    color: white;
+    color: #ffffff;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 19px 40px;
+    gap: 20px;
+    font-family: "Oxanium", "Space Mono", sans-serif;
 }
 
 .logo {
     color: white;
     font-size: 1.8rem;
+    margin: 0;
 }
 
 .nav-links,
@@ -24,7 +27,7 @@
     color: white;
     text-decoration: none;
     font-weight: 600;
-    transition: 0.3s;
+    transition: 0.3s ease;
 }
 
 .nav-links a:hover,
@@ -33,14 +36,50 @@
 }
 
 .logout-button {
-    background-color: #00897B;
+    background-color: #00695C;
     color: white;
     border: none;
     padding: 10px 18px;
     border-radius: 6px;
     cursor: pointer;
+    font-weight: 700;
+    transistion: 0.2s ease;
 }
 
 .logout-button:hover {
-    background-color: #00695C;
+    background-color: #004D40;
+}
+
+.nav-links a:focus-visible,
+.auth-links a:focus-visible,
+.logout-button:focus-visible {
+    outline: 3px solid #FFD54F;
+    outline-offset: 3px;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 18px 24px;
+    }
+
+    .nav-links,
+    .auth-links {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+}
+
+@media (max-width: 400px) {
+    .nav-links,
+    .auth-links {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .logout-button {
+        width: 100%;
+    }
 }

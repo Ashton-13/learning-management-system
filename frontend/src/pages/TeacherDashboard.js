@@ -6,165 +6,261 @@ import "../styles/teacherdashboard.css";
 function TeacherDashboard() {
     const [courses, setCourses] = useState([]);
     const [loading, setLoading] = useState(true);
+
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [editingId, setEditingId] = useState(null);
+
+    const [message, setMessage] = useState("");
+
     const { username } = useSelector(
         (state) => state.auth
     );
-    const token = localStorage.getItem("accessToken");
 
-        const fetchCourses = useCallback(async () => {
-            try {
-                const response = await api.get("api/teacher/courses/", {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-
-                setCourses(response.data);
-            } catch (error) {
-                console.error("Error loading teacher dashboard", error);
-            } finally {
-                setLoading(false);
-            }
-        }, [token]);
-          
-    useEffect(() => {
-        fetchCourses(); 
-        }, [fetchCourses]);
-
-        const handleSubmit = async (e) => {
-            e.preventDefault();
-
-            try {
-                if (editingId) {
-                    await api.put(
-                        `/api/courses/${editingId}/`,
-                        {title, description},
-                        {
-                            headers: {
-                                Authorization: `Bearer ${token}`,
-                            },
-                        }
-                    );
-                } else {
-                    await api.post(
-                        "/api/courses/",
-                        {title, description},
-                        {
-                            headers: {
-                                Authorization: `Bearer ${token}`,
-                            },
-                        }
-                    );
-                }
-
-                setTitle("");
-                setDescription("");
-                setEditingId(null);
-                fetchCourses();
-            } catch (error) {
-                console.error("Save failed", error);
-            }
-        };
-
-        const handleDelete = async (id) => {
-            const confirmed = window.confirm(
-                "Are you sure you want to permanantly delete this course?"
+    const fetchCourses = useCallback(async () => {
+        try {
+            const response = await api.get(
+                "api/teacher/courses/"
             );
 
-            if (!confirmed) return;
+            setCourses(response.data);
 
-            try {
-                await api.delete(`/api/courses/${id}/`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-                fetchCourses();
-            } catch (error) {
-                console.error("Delete failed", error);
+        } catch (error) {
+            console.error(
+                "Error loading teacher dashboard",
+                error
+            );
+
+            setMessage(
+                "Unable to load your courses."
+            );
+
+        } finally {
+            setLoading(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        fetchCourses();
+    }, [fetchCourses]);
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        setMessage("");
+
+        try {
+            if (editingId) {
+                await api.put(
+                    `api/courses/${editingId}/`,
+                    {
+                        title,
+                        description,
+                    }
+                );
+
+                setMessage(
+                    "Course updated successfully."
+                );
+
+            } else {
+                await api.post(
+                    "api/courses/",
+                    {
+                        title,
+                        description,
+                    }
+                );
+
+                setMessage(
+                    "Course created successfully."
+                );
             }
-        };
 
-        const handleEdit = (course) => {
-            setTitle(course.title);
-            setDescription(course.description);
-            setEditingId(course.id);
-        };
+            setTitle("");
+            setDescription("");
+            setEditingId(null);
+
+            fetchCourses();
+
+        } catch (error) {
+            console.error(
+                "Save failed",
+                error
+            );
+
+            setMessage(
+                "Unable to save course. Please try again."
+            );
+        }
+    };
+
+    const handleDelete = async (id) => {
+        const confirmed = window.confirm(
+            "Are you sure you want to permanently delete this course?"
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
+        setMessage("");
+
+        try {
+            await api.delete(
+                `api/courses/${id}/`
+            );
+
+            setMessage(
+                "Course deleted successfully."
+            );
+
+            fetchCourses();
+
+        } catch (error) {
+            console.error(
+                "Delete failed",
+                error
+            );
+
+            setMessage(
+                "Unable to delete course. Please try again."
+            );
+        }
+    };
+
+    const handleEdit = (course) => {
+        setTitle(course.title);
+        setDescription(course.description);
+        setEditingId(course.id);
+        setMessage("");
+    };
+
+    const cancelEdit = () => {
+        setEditingId(null);
+        setTitle("");
+        setDescription("");
+        setMessage("");
+    };
 
     if (loading) {
-        return <p>Loading teacher's dashboard...</p>
+        return (
+            <p className="teacher-loading">
+                Loading teacher dashboard...
+            </p>
+        );
     }
-    return ( 
+
+    return (
         <div className="teacher-dashboard">
             <h1>Teacher Dashboard</h1>
-            <p>Welcome, {username}</p>
+
+            <p className="teacher-welcome">
+                Welcome, {username}
+            </p>
+
+            {message && (
+                <p
+                    className="teacher-message"
+                    aria-live="polite"
+                >
+                    {message}
+                </p>
+            )}
 
             <section className="course-form">
-                <h2>{editingId ? "Edit Course" : "Create New Course"}</h2>
+                <h2>
+                    {editingId ? "Edit Course" : "Create New Course"}
+                </h2>
+
                 <form onSubmit={handleSubmit}>
-                    <input 
+                    <label htmlFor="course-title">
+                        Course Title
+                    </label>
+
+                    <input
+                        id="course-title"
                         type="text"
-                        placeholder="Course tile"
                         value={title}
-                        onChange={(e) => setTitle(e.target.value)}
+                        onChange={(event) =>
+                            setTitle(event.target.value)
+                        }
                         required
                     />
+
+                    <label htmlFor="course-description">
+                        Course Description
+                    </label>
 
                     <textarea
-                        placeholder="Course description"
+                        id="course-description"
                         value={description}
-                        onChange={(e) => setDescription(e.target.value)}
+                        onChange={(event) =>
+                            setDescription(event.target.value)
+                        }
                         required
                     />
-                    <button type="submit">
-                        {editingId ? "Update Course" : "Create Course"}
-                    </button>
 
-                    {editingId && (
-                        <button
-                            type="button"
-                            onClick={() => {
-                                setEditingId(null);
-                                setTitle("");
-                                setDescription("");
-                            }}
-                        >
-                            Cancel
+                    <div className="form-actions">
+                        <button type="submit">
+                            {editingId ? "Update Course" : "Create Course"}
                         </button>
-                    )}
+
+                        {editingId && (
+                            <button
+                                type="button"
+                                onClick={cancelEdit}
+                            >
+                                Cancel
+                            </button>
+                        )}
+                    </div>
                 </form>
             </section>
 
-            <section>
-            <h2>My Courses</h2>
-            {courses.length === 0 ? (
-                <p>You currently have no created courses yet.</p>
-            ) : (
-                <div className="course-list">
-                {courses.map((course) => (
-                    <div key={course.id} className="course-card">
-                        <h3>{course.title}</h3>
-                        <p>{course.description}</p>
+            <section className="teacher-courses">
+                <h2>My Courses</h2>
 
-                        <div className="actions">
-                            <button onClick={() => handleEdit(course)}>
-                                Edit
-                            </button>
-
-                            <button onClick={() => handleDelete(course.id)}
-                                    style={{ background: "red", color: "white" }}
+                {courses.length === 0 ? (
+                    <p>
+                        You currently have no created courses yet.
+                    </p>
+                ) : (
+                    <div className="teacher-course-list">
+                        {courses.map((course) => (
+                            <div
+                                key={course.id}
+                                className="teacher-course-card"
                             >
-                                Delete
-                            </button>
+                                <h3>{course.title}</h3>
 
-                        </div>
+                                <p>{course.description}</p>
+
+                                <div className="actions">
+                                    <button
+                                        type="button"
+                                        className="edit-btn"
+                                        onClick={() =>
+                                            handleEdit(course)
+                                        }
+                                    >
+                                        Edit
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        className="delete-btn"
+                                        onClick={() =>
+                                            handleDelete(course.id)
+                                        }
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
                     </div>
-                ))}
-                </div>
-            )}
+                )}
             </section>
         </div>
     );

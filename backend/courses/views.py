@@ -3,11 +3,16 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from .models import Course, Enrollment
 from .serializers import CourseSerializer, EnrollmentSerializer
-from .permissions import IsTeacher, IsStudent
-from .permissions import IsCourseOwner
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from .permissions import (
+    IsTeacher, 
+    IsStudent,
+    IsCourseOwner,
+    IsAdmin,
+)
+
 # Create your views here.
 
 # Completed Courses
@@ -88,3 +93,10 @@ class MyTeacherCoursesView(generics.ListAPIView):
 
     def get_queryset(self):
         return Course.objects.filter(teacher=self.request.user)
+    
+class AdminCourseListView(generics.ListAPIView):
+    serializer_class = CourseSerializer
+    permission_classes = [IsAuthenticated, IsAdmin]
+
+    def get_queryset(self):
+        return Course.objects.all()

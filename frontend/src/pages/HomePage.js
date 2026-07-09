@@ -7,6 +7,13 @@ function HomePage() {
         (state) => state.auth
     );
 
+    const dashboardPath =
+        role === "admin" 
+            ? "/admin"
+            : role === "teacher"
+                ? "/teacher"
+                : "/student";
+
     return (
         <main className="home">
             <section className="hero">
@@ -32,11 +39,7 @@ function HomePage() {
                         </Link>
                     ) : (
                         <Link 
-                            to={
-                                role === "student"
-                                    ? "/student"
-                                    : "/teacher"
-                            }
+                            to={dashboardPath}
                             className="secondary-button"
                         >
                             Dashboard   
@@ -80,10 +83,7 @@ function HomePage() {
                     </div>
                     </div>
             </section>
-            <footer 
-                id="container"
-                className="footer"
-            >
+            <footer className="footer">
                 <h2>Contact Us</h2>
                 <p>Email: support@scienceacademy.com</p>
                 <p>Phone: +44 1324 06978</p>
