@@ -62,6 +62,7 @@ Deployed using **Render** and **Netlify**.
 
 ### CSS Validation
 
+<img width="1892" height="1004" alt="image" src="https://github.com/user-attachments/assets/44f4e99b-91f7-42c9-a60c-53df8d0c5396" />
 
 
 ### HTML Validation
