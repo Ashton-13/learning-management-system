@@ -43,7 +43,7 @@
     border-radius: 6px;
     cursor: pointer;
     font-weight: 700;
-    transistion: 0.2s ease;
+    transition: 0.2s ease;
 }
 
 .logout-button:hover {
